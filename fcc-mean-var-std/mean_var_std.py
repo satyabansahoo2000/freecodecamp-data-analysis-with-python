@@ -1,36 +1,45 @@
 import numpy as np
 
 def calculate(list):
-    list = np.reshape(list,(3,3))
-    calculations = {}
-    list_mean = [np.mean(list, axis = 0) ,
-                 np.mean(list, axis = 1) ,
-                 np.mean(list.flatten())]
-    
-    list_variance = [np.var(list, axis = 0) ,
-                     np.var(list, axis = 1) ,
-                     np.var(list.flatten())]
-    
-    list_std = [np.std(list, axis = 0) ,
-                 np.std(list, axis = 1) ,
-                 np.std(list.flatten())]
-    
-    list_max = [np.max(list, axis = 0) ,
-                 np.max(list, axis = 1) ,
-                 np.max(list.flatten())]
-    
-    list_min = [np.min(list, axis = 0) ,
-                 np.min(list, axis = 1) ,
-                 np.min(list.flatten())]
-    
-    list_sum = [np.sum(list, axis = 0) ,
-                 np.sum(list, axis = 1) ,
-                 np.sum(list.flatten())]
-    
-    calculations = {'mean':list_mean,
-                    'variance':list_variance,
-                    'standard deviation':list_std,
-                    'max':list_max,
-                    'min':list_min,
-                    'sum':list_sum}
-    return calculations
+  if len(list) == 9:
+    list = np.reshape(list, (3,3))
+  else:
+    raise ValueError("List must contain nine numbers.")
+
+  calculations = {}
+
+  vertical = [[list[i][j] for i in range(3)] for j in range(3)]
+  horizontal = [[list[j][i] for i in range(3)] for j in range(3)]
+
+  vertical_mean = [np.mean(i) for i in vertical]
+  horizontal_mean = [np.mean(i) for i in horizontal]
+  flatten_mean = np.mean(list.flatten())
+
+  vertical_variance = [np.var(i) for i in vertical]
+  horizontal_variance = [np.var(i) for i in horizontal]
+  flatten_variance = np.var(list.flatten())
+
+  vertical_std = [np.std(i) for i in vertical]
+  horizontal_std = [np.std(i) for i in horizontal]
+  flatten_std = np.std(list.flatten())
+
+  vertical_max = [np.max(i) for i in vertical]
+  horizontal_max = [np.max(i) for i in horizontal]
+  flatten_max = np.max(list.flatten())
+
+  vertical_min = [np.min(i) for i in vertical]
+  horizontal_min = [np.min(i) for i in horizontal]
+  flatten_min = np.min(list.flatten())
+
+  vertical_sum = [np.sum(i) for i in vertical]
+  horizontal_sum = [np.sum(i) for i in horizontal]
+  flatten_sum = np.sum(list.flatten())
+
+  calculations["mean"] = [vertical_mean, horizontal_mean, flatten_mean]
+  calculations["variance"] = [vertical_variance, horizontal_variance, flatten_variance]
+  calculations["standard deviation"] = [vertical_std, horizontal_std, flatten_std]
+  calculations["max"] = [vertical_max, horizontal_max, flatten_max]
+  calculations["min"] = [vertical_min, horizontal_min, flatten_min]
+  calculations["sum"] = [vertical_sum, horizontal_sum, flatten_sum]
+
+  return calculations
